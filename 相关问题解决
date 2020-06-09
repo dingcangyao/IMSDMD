@@ -1,0 +1,31 @@
+1.os.path.split(class_path)[1]  split是返回一个数组，一个存放路径，一个存放名字，后面的[1]就是取值
+2. model_selection.StratifiedShuffleSplit 就是用来分开训练样本和测试样本，并且是分层的分开
+3.安装那个cyvlfeat的时候，python是有版本限制的，我的是3.7降到3.6就可以了
+4.np.ceil是向上取整
+5.cv2.copyMakeBorder把图像扩充一圈
+6.d=signal.correlate2d是一个二维滤波器，如果过滤矩阵是奇数，就把矩阵值放在计算中心，偶数有待讨论，建议不要偶数
+7.g[block_radius: g.shape[0] - block_radius,
+                  block_radius: g.shape[1] - block_radius]这种操作就是用来取特定的行和列的数据，：前是开始，：后是结束
+8.https://blog.csdn.net/tz_zs/article/details/80775256 np.floor向下取整
+9.矩阵除法，就是把矩阵的每个值对位相除
+10.[a:b:c,:]c就是步数，也就是取了一个值，下一个在哪取
+11.flatten()[:, None],前面的函数是用来降维，而后面的是把行转为列
+12.np.argmax  取出最大值对应的索引
+13.enumerate(idxs)  就是数组进行操作，分为两个对象，一个对象存放位置，一个存放值
+14.np.random.permutation()对括号内的东西进行随机排列 https://blog.csdn.net/weixin_44188264/article/details/93752505
+15.np.zeros  用来生成指定格式，指定数据格式的全零填充数组
+16.kmeans(new_descrs, num_centers=num_cluster, verbose=True, initialization='PLUSPLUS',
+                     min_energy_variation=0.000001).astype(np.float32) 目前来说，是kmeans聚类初始函数，每个列的数据进行了聚类，聚出了128个聚类中心，
+                     也就是128行
+17.对图像特征的数据进行分析  每个图片提取出的特征就是（80，8649），每个图片特征又经过随机提取变成（80，1250），然后把400个图片的特征拼合在一块
+然后就变成了（80，500000），然后进行转置变成（500000，80），进行聚类，变成（128，80），这个就是中心，把这个值给返回
+18.cv2.pyrDown() 从一个高分辨率大尺寸的图像向上构建一个金字塔（尺寸变小，分辨率降低）
+19. kmeans_quantize将给定的数据投影到相应的群集索引。给每个特征行分配给聚类中心
+20.np.mean() 取平均值 https://blog.csdn.net/lilong117194/article/details/78397329
+21.np.sum  在后面使用==条件相加的情况下返回的是==的个数，但是在其他情况下可以返回元组的值
+22.np.sign(n) 返回一个和后面矩阵同行同列的矩阵，里面存放着和原来矩阵对应值的符号值，正的是1，负的是-1
+23.np.abs() 对矩阵中的元素取绝对值
+24.np.vstack(),就是用来拼接矩阵的好像，把相同的矩阵拼在一块，有待研究
+２５．ｎｐ．ｓａｖｅ，就是用来存储ｎｐ格式的文件，用ｌｏａｄ加载
+26.precision_score、recall_score、f1_score都是不同的评分方法，https://blog.csdn.net/tttwister/article/details/81138865
+27.数组排序，并且返回原坐标，用np.argsort(v),倒叙用-v，还可以排列部分的数据
