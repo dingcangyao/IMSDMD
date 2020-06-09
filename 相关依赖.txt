@@ -1,0 +1,5 @@
+里面的from cyvlfeat.kmeans import kmeans_quantize
+是从网上下载的
+https://github.com/menpo/cyvlfeat
+按照这个网站上的来进行安装，但是有时候安装失败是由于python版本高了，所以要把python版本降到3.6.1，下面网站是降级的。
+https://www.py.cn/jishu/jichu/13197.html

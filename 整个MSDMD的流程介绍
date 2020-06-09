@@ -1,0 +1,20 @@
+一.分步介绍（主要介绍各个函数的作用）
+  1.computeCoordinates.py
+    这个py里面定义了一个函数computerCoordinates(block_radii, n_points, n_folds)，block_radii是块的半径，n_points是要生成多少个坐标点，n_folds是
+    取旋转的次数，这里面block_radius = 7 nPoints = 80 n_fold = 8，然后以block_size**2)/25为方差，利用高斯分布来生成10个坐标作为Xi，生成十个坐标
+    作为Yi。都是（2，10）的矩阵，然后利用旋转矩阵，为Xi，Yi，分别的旋转7次，每次旋转都分别增加10个坐标，添加到Xi、Yi的矩阵里，那么Xi、Yi就是（2，80）
+    的矩阵
+  2.computeSDMD.py
+    里面定义了一个函数computeSDMD(img_path, dmd_options, level):img_path:就是每一个图片的地址，dmd_option：就是dmd的一些配置信息，level就是高斯金字塔
+    的层数，这个函数，会根据提供的图片位置读取灰度图片，然后根据level来构建高斯金字塔，根据这个来计算微块差，最后得到的是，一个（80，8649）的矩阵
+    记住是每个图片都有一个这个矩阵（好好研究）
+  3.trainVLADCodeBook.py
+    这里面定义的函数：trainVLADCodeBook(images, dmd_options, kmeans_options)  images:就是用来训练的所有图片，dmd_options：就是微块信息
+    kmeans_options：描述符最大个数500000，聚类中心 128个，所以这个操作，就是根据所有图片的微块差特征然后，进行聚类，生成（128，80）的矩阵
+  4.encodeHVLAD.py
+    encodeHVLAD(images, encoder, dmd_options),这里面的encoder就是聚类中心（128，80） 的矩阵，先对images也就是训练的图片集，先分别进行三层高斯金字
+    塔的SDMD特征提取，分别是l_features 、m_features、s_features。每一个都是几百张图片SDMD的特征。为每个特征集进行循环，l_features进行循环
+    对每个图片的特征于聚类中心进行索引，然后把每个类中心索引的特征值单拿出来，计算Ｖｍ，特征值的平均值和聚类中心相减再乘上索引到当前聚类中心的特征个数，然后
+    计算Vc，最后把Vm和Vc拼接在一起，形成V_all,最后在给转化成一维，然后每个图片都会生成l_features的一行，最后把三层金字塔的取平均值返回。
+  5.load_img.py
+    get_images(dataset),根据你提供的数据库名，去读取标签名还有图片地址，并且一一对应，返回imageList、labelList
